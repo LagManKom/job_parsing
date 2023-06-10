@@ -6,7 +6,7 @@
 таким образом у нас появится инструмент работы с данными, штуки для наполнения данных из разных АПИ, работа с файлами
 ну и остается общее тело - собственно некий интерфейс общения с пользователем мол что делаем - запрашиваем файлы, наполняем объекты, сортируем их, перезапрашиваем и т д... это уже привычная рутина =))
 ну и тесты.'''
-import os
+
 # Выкачать данные.
 # Положить все в экземпляры одного класса Vacancy
 # Список передать объекту, который запишет все это в файл.
@@ -15,30 +15,26 @@ import os
 # асбтрактный класс-модели, принимает набор фильтров и возвращает данные из API в нужном формате
 # два класса наследника для работы с апи (HH & SuperJob)
 # список этих объектов по разному сортировать или искать
-from abc import ABC, abstractmethod
+
+from src.classes import SuperJobAPI, HeadHunterAPI, CreateFileJson
 
 
-class WorkingAPI(ABC):
-    @abstractmethod
-    def get_vacancies(self):
-        pass
+def main():
+    vacancies = []
 
-    def foo(self):
-        pass
+    keyword = input('Введите ключевое слово: ')
+
+    hh = HeadHunterAPI(keyword)
+    sj = SuperJobAPI(keyword)
+
+    answer = input('Выберите API: HeadHunter или SuperJob ')
+    if answer == 'HeadHunter':
+        sj.get_vacancies(page_count=1)
+        vacancies.extend(hh.sort_by_salary)
+
+    file = CreateFileJson(keyword=keyword, vacancies_json=vacancies)
+
+    while True:
+        input(f'')
 
 
-class HeadHunterAPI(WorkingAPI):
-
-    def __init__(self, prof):
-        self.prof = prof
-
-    def get_vacancies(self):
-        pass
-
-
-class SuperJobAPI(WorkingAPI):
-
-    api = os.getenv('SuperJobAPI')
-
-    def get_vacancies(self):
-        pass
