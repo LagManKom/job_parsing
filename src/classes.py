@@ -59,9 +59,9 @@ class HeadHunterAPI(WorkingAPI):
                 'title': vacancy['name'],
                 'url': vacancy['alternate_url'],
                 'api': 'HeadHunter',
-                'salary_from': vacancy['salary']['from'] if vacancy['salary']['from'] else None,
-                'salary_to': vacancy['salary']['to'] if vacancy['salary']['to'] else None,
-                'currency': vacancy['salary']['currency'] if vacancy['salary']['currency'] else None
+                'salary_from': vacancy['salary']['from'] if vacancy['salary'] else None,
+                'salary_to': vacancy['salary']['to'] if vacancy['salary'] else None,
+                'currency': vacancy['salary']['currency'] if vacancy['salary'] else None
             }
             formatted_vacancies.append(formatted_vacancy)
 
