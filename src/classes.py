@@ -37,7 +37,7 @@ class HeadHunterAPI(WorkingAPI):
         for page in range(pages_count):
             page_vacancies = []
             self.params['page'] = page
-            print(f'Парсинг страницы {page} ')
+            print(f'Парсинг страницы {page + 1} ')
             try:
                 page_vacancies = self.get_request()
             except Exception as error:
@@ -53,7 +53,6 @@ class HeadHunterAPI(WorkingAPI):
         formatted_vacancies = []
 
         for vacancy in self.vacancies:
-            # print(vacancy)
             formatted_vacancy = {
                 'employer': vacancy['employer']['name'],
                 'title': vacancy['name'],
@@ -93,7 +92,7 @@ class SuperJobAPI(WorkingAPI):
         for page in range(pages_count):
             page_vacancies = []
             self.params['page'] = page
-            print(f'Парсинг страницы {page} ')
+            print(f'Парсинг страницы {page + 1} ')
             try:
                 page_vacancies = self.get_request()
                 if len(page_vacancies) == 0:
@@ -135,9 +134,6 @@ class CreateFileJson:
     def read(self):
         with open(self.filename, mode='r', encoding='utf-8') as file:
             vacancies = json.load(file)
-            # vacancy = []
-            # for x in vacancies:
-            #     vacancy.append(Vacancy(x))
             return [Vacancy(x) for x in vacancies]
 
     def sort_by_salary(self):

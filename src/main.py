@@ -47,7 +47,8 @@ def main():
                 for x in file.read():
                     print(x)
             elif answer.lower() == '2':
-                print(file.sort_by_salary())
+                for x in file.sort_by_salary():
+                    print(x)
             elif answer.lower() == 'exit':
                 break
     except InputError:
