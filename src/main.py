@@ -1,5 +1,5 @@
-from src.classes import SuperJobAPI, HeadHunterAPI, CreateFileJson
-from src.exception import InputError
+from utils.classes import SuperJobAPI, HeadHunterAPI, CreateFileJson
+from utils.exception import InputError
 
 
 def main():
