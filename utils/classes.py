@@ -1,25 +1,8 @@
 import json
 import os
-from abc import ABC, abstractmethod
-
 import requests
 
-
-class WorkingAPI(ABC):
-    @abstractmethod
-    def get_vacancies(self, profession):
-        pass
-
-    @abstractmethod
-    def get_request(self):
-        pass
-
-
-class FormattedVacancies(WorkingAPI):
-
-    @abstractmethod
-    def get_formatted_vacancies(self):
-        pass
+from utils.abstract_classes import FormattedVacancies
 
 
 class HeadHunterAPI(FormattedVacancies):
@@ -53,15 +36,12 @@ class HeadHunterAPI(FormattedVacancies):
             page_vacancies = []
             self.params['page'] = page
             print(f'Парсинг страницы {page + 1} ')
-            try:
-                if len(page_vacancies) == 0:
-                    break
-                page_vacancies = self.get_request()
-                self.vacancies.extend(page_vacancies)
-                print('Вакансии загружены')
-                print('---')
-            except Exception as error:
-                print(f'Ошибка {error}')
+            page_vacancies = self.get_request()
+            if len(page_vacancies) == 0:
+                break
+            self.vacancies.extend(page_vacancies)
+            print('Вакансии загружены')
+            print('---')
 
     def get_formatted_vacancies(self):
         """
@@ -119,15 +99,12 @@ class SuperJobAPI(FormattedVacancies):
             page_vacancies = []
             self.params['page'] = page
             print(f'Парсинг страницы {page + 1} ')
-            try:
-                if len(page_vacancies) == 0:
-                    break
-                page_vacancies = self.get_request()
-                self.vacancies.extend(page_vacancies)
-                print('Вакансии загружены')
-                print('---')
-            except Exception as error:
-                print(f'Ошибка {error}')
+            page_vacancies = self.get_request()
+            if len(page_vacancies) == 0:
+                break
+            self.vacancies.extend(page_vacancies)
+            print('Вакансии загружены')
+            print('---')
 
     def get_formatted_vacancies(self):
         """
